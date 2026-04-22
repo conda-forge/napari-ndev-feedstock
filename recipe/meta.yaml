@@ -6,18 +6,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-ndev-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-ndev-{{ version }}.tar.gz
   sha256: 2111fb071505242549523a577358b1b4613f213f9034d5c917e000efbeca4d32
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - aicsimageio
@@ -28,7 +28,7 @@ requirements:
     - napari-workflows
     - numpy
     - pyclesperanto-prototype
-    - python >=3.8
+    - python >={{ python_min }}
     - qtpy
 
 test:
@@ -40,6 +40,7 @@ test:
   requires:
     - oclgrind
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/napari-ndev
